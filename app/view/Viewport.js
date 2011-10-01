@@ -24,7 +24,7 @@ Ext.define('App.view.Viewport', {
     },{
         xtype   :'controlpanel',
         region  :'west',
-        title   :'Controls',
+        title   :'Theme Options',
         margin  : '3 0 3 3'
     },{
         xtype   :'preview',
