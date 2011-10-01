@@ -9,5 +9,5 @@ Ext.define('App.view.Preview', {
     extend  : 'Ext.panel.Panel',
     alias   : 'widget.preview',
 
-    html: '<iframe src="theme.html" frameborder="0" width="100%" height="100%"></iframe>'
+    html: '<iframe src="theme.php?theme=ext-all-access" frameborder="0" width="100%" height="100%"></iframe>'
 });

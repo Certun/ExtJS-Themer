@@ -90,7 +90,7 @@ Ext.onReady(function() {
         value: 0.5
     });
     Ext.createWidget( 'window', {
-        x: 500, y: 0,
+        x: 510, y: 10,
         width   : 180,
         height  : 170,
         minWidth: 150,
@@ -116,12 +116,15 @@ Ext.onReady(function() {
         }]
     }).show();
 
-    Ext.create('Ext.container.Viewport', {
+    Ext.create('Ext.container.Container', {
         layout:'absolute',
+        renderTo: Ext.getBody(),
         autoScroll:true,
+        width:895,
+        height:1545,
         items:[{
             xtype: 'panel',
-            x: 0, y: 0,
+            x: 10, y: 10,
             width : 150,
             height: 170,
             title: 'Collapsed Panel',
@@ -131,7 +134,7 @@ Ext.onReady(function() {
             collapsible: true
         },{
             xtype: 'panel',
-            x: 160, y: 0,
+            x: 170, y: 10,
             width : 130,
             height: 170,
             title: 'Masked Panel',
@@ -147,7 +150,7 @@ Ext.onReady(function() {
             }
         },{
             xtype: 'panel',
-            x: 300, y: 0,
+            x: 310, y: 10,
             width : 190,
             height: 170,
             title: 'Framed Panel',
@@ -175,7 +178,7 @@ Ext.onReady(function() {
             frame      : true
         },{
             xtype: 'panel',
-            x: 690, y: 0,
+            x: 700, y: 10,
             border: false,
             width : 180,
             items: {
@@ -185,10 +188,11 @@ Ext.onReady(function() {
             xtype: 'form',
             id   : 'form-widgets',
             title: 'Form Widgets',
-            x: 0, y: 870,
+            x: 10, y: 885,
             width : 870,
             height: 650,
             frame: true,
+            margin: '0 0 10 0',
             collapsible: true,
             tools: [
                 {type:'toggle'},
@@ -300,7 +304,7 @@ Ext.onReady(function() {
             xtype: 'panel',
             width : 870,
             height: 650,
-            x: 0, y: 210,
+            x: 10, y: 225,
             title : 'BorderLayout Panel',
             layout: 'border',
             collapsible: true,
@@ -402,8 +406,7 @@ Ext.onReady(function() {
                     items: [{
                         title: 'Tab 1'
                     },{
-                        title   : 'Tab 2',
-                        closable: true
+                        title: 'Tab 2'
                     }]
                 }]
             },{
@@ -435,15 +438,19 @@ Ext.onReady(function() {
                     }]
                 }]
             }]
-        }]
-    })
-
+        }],
+        listeners:{
+            afterrender:function(){
+                Ext.get('loading').remove();
+                Ext.get('loading-mask').fadeOut({remove:true});
+            }
+        }
+    });
     setTimeout(function() {
         Ext.QuickTips.init();
         progressbar.wait({
             text: 'Progress text...'
         });
-    }, 7000);
+    }, 1000);
 
 });
-
