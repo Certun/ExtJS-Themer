@@ -24,7 +24,8 @@ Ext.define('App.view.ControlPanel', {
             text:'Gray',
             margin:'0 5 0 5',
             value:'ext-all-gray',
-            action:'changebase'
+            action:'changebase',
+            pressed:true
         },{
             text:'Access',
             margin:'0 0 0 5',
@@ -81,10 +82,12 @@ Ext.define('App.view.ControlPanel', {
         title       : '3. Preview Changes or Download Theme',
         items:[{
             text:'Preview',
-            margin:'0 5 0 0'
+            margin:'0 5 0 0',
+            action:'preview'
         },{
             text:'Download',
-            margin:'0 0 0 5'
+            margin:'0 0 0 5',
+            action:'download'
         }]
     }]
 });

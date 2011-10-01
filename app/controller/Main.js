@@ -19,6 +19,9 @@ Ext.define('App.controller.Main', {
     }],
 
     init: function() {
+        // Set the Current theme to null at application start
+        App.currTheme = null;
+        
         this.control({
             // After Control Panel is Render Remove Loading Mask
             'controlpanel': {
@@ -30,28 +33,41 @@ Ext.define('App.controller.Main', {
             // After priview window ei render load the default theme
             'preview': {
                 render: function(){
-                    var theme = 'ext-all-gray';
-                    this.previewLoad(theme);
+                    this.previewLoad();
                 }
             },
             // Tuggle Btns to change the Base Theme
             'controlpanel button[action=changebase]': {
-                click: this.changeBase
+                click: function(button){
+                    this.changeBase(button);
+                }
+            },
+            // To reload the preview using the current theme
+            'controlpanel button[action=preview]': {
+                click: function(){
+                    this.previewLoad();
+                }
+            },
+            // Download handeler
+            'controlpanel button[action=download]': {
+                click: function(){
+                    Ext.Msg.alert('Debbuging', 'This button will handle the download request.');
+                }
             }
         });
     },
     // Fuction to change the Base Theme
     changeBase: function(button){
-        var theme = button.value;
-        this.previewLoad(theme);
+        App.currTheme = button.value;
+        this.previewLoad();
     },
-    previewLoad:function(theme){
+    // Preveiw paneel update
+    previewLoad:function(){
+        // defaul theme
+        App.currTheme = (App.currTheme == null) ? 'ext-all-gray' : App.currTheme;
         var previewpanel = Ext.getCmp('previewpanel');
-        previewpanel.update({ html:'<iframe src="theme.php?theme='+theme+'" frameborder="0" width="100%" height="100%"></iframe>' });
-    },
-    alert:function(){
-        alert('');
-    }
+        previewpanel.update({ html:'<iframe src="theme.php?theme='+App.currTheme+'" frameborder="0" width="100%" height="100%"></iframe>' });
 
+    }
 });
 
