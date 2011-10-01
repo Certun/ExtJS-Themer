@@ -27,7 +27,12 @@ Ext.define('App.controller.Main', {
 
     init: function() {
         this.control({
-  
+            'viewport > controlpanel': {
+                render: function(){
+                    Ext.get('mainapp-loading').remove();
+                    Ext.get('mainapp-loading-mask').fadeOut({remove:true});
+                }
+            }
         });
     }
 });
