@@ -17,13 +17,19 @@ Ext.define('App.view.ControlPanel', {
         title       : '1. Choose Base Thame',
         items:[{
             text:'Blue',
-            margin:'0 5 0 0'
+            margin:'0 5 0 0',
+            value:'ext-all',
+            action:'changebase'
         },{
             text:'Gray',
-            margin:'0 5 0 5'
+            margin:'0 5 0 5',
+            value:'ext-all-gray',
+            action:'changebase'
         },{
             text:'Access',
-            margin:'0 0 0 5'
+            margin:'0 0 0 5',
+            value:'ext-all-access',
+            action:'changebase'
         }]
     },{
         xtype       : 'fieldset',

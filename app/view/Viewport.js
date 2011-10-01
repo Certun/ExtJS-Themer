@@ -1,17 +1,10 @@
-/*
-
-This file is part of Ext JS 4
-
-Copyright (c) 2011 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as published by the Free Software Foundation and appearing in the file LICENSE included in the packaging of this file.  Please review the following information to ensure the GNU General Public License version 3.0 requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department at http://www.sencha.com/contact.
-
-*/
+/**
+ * Created by JetBrains PhpStorm.
+ * User: ernesto
+ * Date: 9/29/11
+ * Time: 3:48 PM
+ * To change this template use File | Settings | File Templates.
+ */
 Ext.define('App.view.Viewport', {
     extend  : 'Ext.container.Viewport',
     layout  :'border',
@@ -28,6 +21,7 @@ Ext.define('App.view.Viewport', {
         margin  : '3 0 3 3'
     },{
         xtype   :'preview',
+        id      : 'previewpanel',
         region  :'center',
         title   :'Theme Preview',
         margin  : '3 3 3 0'

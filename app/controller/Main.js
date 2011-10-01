@@ -1,17 +1,10 @@
-/*
-
-This file is part of Ext JS 4
-
-Copyright (c) 2011 Sencha Inc
-
-Contact:  http://www.sencha.com/contact
-
-GNU General Public License Usage
-This file may be used under the terms of the GNU General Public License version 3.0 as published by the Free Software Foundation and appearing in the file LICENSE included in the packaging of this file.  Please review the following information to ensure the GNU General Public License version 3.0 requirements will be met: http://www.gnu.org/copyleft/gpl.html.
-
-If you are unsure which license is appropriate for your use, please contact the sales department at http://www.sencha.com/contact.
-
-*/
+/**
+ * Created by JetBrains PhpStorm.
+ * User: ernesto
+ * Date: 9/29/11
+ * Time: 3:48 PM
+ * To change this template use File | Settings | File Templates.
+ */
 Ext.define('App.controller.Main', {
     extend: 'Ext.app.Controller',
 
@@ -27,13 +20,38 @@ Ext.define('App.controller.Main', {
 
     init: function() {
         this.control({
-            'viewport > controlpanel': {
+            // After Control Panel is Render Remove Loading Mask
+            'controlpanel': {
                 render: function(){
                     Ext.get('mainapp-loading').remove();
                     Ext.get('mainapp-loading-mask').fadeOut({remove:true});
                 }
+            },
+            // After priview window ei render load the default theme
+            'preview': {
+                render: function(){
+                    var theme = 'ext-all-gray';
+                    this.previewLoad(theme);
+                }
+            },
+            // Tuggle Btns to change the Base Theme
+            'controlpanel button[action=changebase]': {
+                click: this.changeBase
             }
         });
+    },
+    // Fuction to change the Base Theme
+    changeBase: function(button){
+        var theme = button.value;
+        this.previewLoad(theme);
+    },
+    previewLoad:function(theme){
+        var previewpanel = Ext.getCmp('previewpanel');
+        previewpanel.update({ html:'<iframe src="theme.php?theme='+theme+'" frameborder="0" width="100%" height="100%"></iframe>' });
+    },
+    alert:function(){
+        alert('');
     }
+
 });
 
