@@ -8,6 +8,7 @@
 Ext.define('App.view.ControlPanel', {
     extend      : 'Ext.form.Panel',
     alias       : 'widget.controlpanel',
+    store       : 'Fonts',
     width       : 250,
     items: [{
         xtype       : 'fieldset',
@@ -16,21 +17,21 @@ Ext.define('App.view.ControlPanel', {
         defaults    : { columnWidth: .33, enableToggle: true, toggleGroup:1 },
         title       : '1. Choose Base Thame',
         items:[{
-            text:'Blue',
-            margin:'0 5 0 0',
-            value:'ext-all',
-            action:'changebase'
+            text    : 'Blue',
+            margin  : '0 5 0 0',
+            value   : 'ext-all',
+            action  : 'changebase'
         },{
-            text:'Gray',
-            margin:'0 5 0 5',
-            value:'ext-all-gray',
-            action:'changebase',
-            pressed:true
+            text    : 'Gray',
+            margin  : '0 5 0 5',
+            value   : 'ext-all-gray',
+            action  : 'changebase',
+            pressed : true
         },{
-            text:'Access',
-            margin:'0 0 0 5',
-            value:'ext-all-access',
-            action:'changebase'
+            text    : 'Access',
+            margin  : '0 0 0 5',
+            value   : 'ext-all-access',
+            action  : 'changebase'
         }]
     },{
         xtype       : 'fieldset',
@@ -45,10 +46,30 @@ Ext.define('App.view.ControlPanel', {
             width           : '100%',
             bodyStyle       : { padding:5 }
         },
-        title   : '2. Choose Theme Options',
-        items   : [{
-            title:'Fonts',
-            html:'hello world'
+
+        title : '2. Choose Theme Options',
+        items : [{
+            title       : 'Fonts',
+            layout      : 'anchor',
+            defaultType : 'combo',
+            defaults    : {
+                editable    : false,
+                labelAlign  : 'topo',
+                anchor      : '100%',
+                store       : 'Fonts',
+                displayField: 'name',
+                valueField  : 'value',
+                emptyText   : 'Select'
+            },
+            items:[{
+                fieldLabel  : 'Default Font'
+            },{
+                fieldLabel  : 'Titles Font'
+            },{
+                fieldLabel  : 'Body Font'
+            },{
+                fieldLabel  : 'Buttons Font'
+            }]
         },{
             title:'Colors',
             html:'hello world'
@@ -81,13 +102,13 @@ Ext.define('App.view.ControlPanel', {
         defaults    : { columnWidth: .5 },
         title       : '3. Preview Changes or Download Theme',
         items:[{
-            text:'Preview',
-            margin:'0 5 0 0',
-            action:'preview'
+            text    : 'Preview',
+            margin  : '0 5 0 0',
+            action  : 'preview'
         },{
-            text:'Download',
-            margin:'0 0 0 5',
-            action:'download'
+            text    : 'Download',
+            margin  : '0 0 0 5',
+            action  : 'download'
         }]
     }]
 });

@@ -8,6 +8,8 @@
 Ext.define('App.controller.Main', {
     extend: 'Ext.app.Controller',
 
+    stores: ['Fonts'],
+
     views: ['Preview', 'ControlPanel', 'Theme'],
 
     refs: [{
