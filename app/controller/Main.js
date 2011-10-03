@@ -1,29 +1,27 @@
 /**
  * Created by JetBrains PhpStorm.
- * User: ernesto
+ * User: Ernesto J Rodriguez "Certun"
  * Date: 9/29/11
  * Time: 3:48 PM
  * To change this template use File | Settings | File Templates.
  */
 Ext.define('App.controller.Main', {
-    extend: 'Ext.app.Controller',
-
-    stores: ['Fonts'],
-
-    views: ['Preview', 'ControlPanel', 'Theme'],
-
-    refs: [{
+    extend  : 'Ext.app.Controller',
+    stores  : ['Fonts'],
+    views   : ['Preview', 'ControlPanel'],
+    refs    : [{
+        // To reference this use getPreview()
         ref     : 'preview',
         selector: 'preview'
     },{
+        // To reference this use getCotrolpanel()
         ref     : 'controlpanel',
         selector: 'controlpanel'
     }],
-
     init: function() {
         // Set the Current theme to null at application start
         App.currTheme = null;
-        
+        // Cotroller listeners events
         this.control({
             // After Control Panel is Render Remove Loading Mask
             'controlpanel': {
@@ -53,7 +51,7 @@ Ext.define('App.controller.Main', {
             // Download handeler
             'controlpanel button[action=download]': {
                 click: function(){
-                    Ext.Msg.alert('Debbuging', 'This button will handle the download request.');
+                    this.themeDowload();
                 }
             }
         });
@@ -65,11 +63,14 @@ Ext.define('App.controller.Main', {
     },
     // Preveiw paneel update
     previewLoad:function(){
-        // defaul theme
+        // Set Defuault Theme
         App.currTheme = (App.currTheme == null) ? 'ext-all-gray' : App.currTheme;
-        var previewpanel = Ext.getCmp('previewpanel');
-        previewpanel.update({ html:'<iframe src="theme.php?theme='+App.currTheme+'" frameborder="0" width="100%" height="100%"></iframe>' });
-
+        // Update preview panel with new theme
+        this.getPreview().update({ html:'<iframe src="theme.php?theme='+App.currTheme+'" frameborder="0" width="100%" height="100%"></iframe>' });
+    },
+    // Download request
+    themeDowload: function(){
+        // TODO: this will handle the dowload request
+        Ext.Msg.alert('Debbuging', 'This button will handle the download request.');
     }
 });
-

@@ -8,7 +8,7 @@ $theme = $_GET['theme'];
         <link rel="stylesheet" type="text/css" href="resources/css/<?php echo $theme ?>.css" />
         <script type="text/javascript" src="ext-all.js"></script>
         <script type="text/javascript" src="theme.min.js"></script>
-        <style>
+        <style type="text/css">
             .x-mask {
                 z-index:  200000;
             }

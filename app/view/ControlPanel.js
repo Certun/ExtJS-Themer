@@ -1,6 +1,6 @@
 /**
  * Created by JetBrains PhpStorm.
- * User: ernesto
+ * User: Ernesto J Rodriguez "Certun"
  * Date: 9/29/11
  * Time: 3:48 PM
  * To change this template use File | Settings | File Templates.
@@ -28,7 +28,7 @@ Ext.define('App.view.ControlPanel', {
             action  : 'changebase',
             pressed : true
         },{
-            text    : 'Access',
+            text    : 'Dark (Access)',
             margin  : '0 0 0 5',
             value   : 'ext-all-access',
             action  : 'changebase'
@@ -46,7 +46,6 @@ Ext.define('App.view.ControlPanel', {
             width           : '100%',
             bodyStyle       : { padding:5 }
         },
-
         title : '2. Choose Theme Options',
         items : [{
             title       : 'Fonts',
