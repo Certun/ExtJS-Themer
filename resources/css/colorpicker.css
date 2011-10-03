@@ -3,10 +3,8 @@
 	background : #FFF;
 }
 .x-cp-rgbpicker {
-	background-image: url(../../images/mask.png);
-	background-repeat: no-repeat;
-	background-color: red;
-	width: 182px;
+    background: red url(../../images/mask.png) no-repeat;
+    width: 182px;
 	height: 182px;
 	margin: 7px;
 	float: left;
@@ -14,9 +12,7 @@
 	_margin: 7px 7px 7px 4px;
 	_cursor: hand;
 	_background-image: none;
-	_filter: progid :   DXImageTransform.Microsoft.AlphaImageLoader (   src
-		= 
-		 'mask.png', sizingMethod =   'scale' );
+	_filter: progid : DXImageTransform.Microsoft.AlphaImageLoader (src = '../../images/mask.png', sizingMethod = 'scale' );
 }
 
 .x-cp-rgbslider {
@@ -25,9 +21,8 @@
 	top: -7px;
 	width: 15px;
 	height: 15px;
-	background-image: url(../../images/slider-rgb.gif) !important;
-	background-repeat: no-repeat !important;
-	cursor: pointer;
+    background: url(../../images/slider-rgb.gif) no-repeat !important;
+    cursor: pointer;
 	_cursor: hand;
 }
 

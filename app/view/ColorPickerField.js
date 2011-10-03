@@ -28,19 +28,13 @@ Ext.define('App.view.ColorPickerField', {
             }
         })
 	},
-    onSelect: function(picker, value, rbgvalue) {
+    onSelect: function(picker, value) {
         var me = this, hex = '#' + value;
         var fontColor = me.fontColor(hex);
-        console.log(fontColor);
-		me.setValue(hex);
         me.setFieldStyle({background:hex, color:fontColor});
+        me.setValue(hex);
 		me.fireEvent('select', me, hex);
 		me.collapse();
-    },
-    onExpand : function(picker){
-    	var me = this,
-        value = me.getValue();
-    	me.picker.setValue(me.getValue());
     },
     fontColor: function(hex){
         function hexToR(h) { return parseInt((cutHex(h)).substring(0,2),16) }
@@ -50,7 +44,7 @@ Ext.define('App.view.ColorPickerField', {
         var R = hexToR(hex),
             G = hexToG(hex),
             B = hexToB(hex);
-        var color = 0.213 * R + 0.715 * G + 0.072 * B < 100 ? '#FFFFFF' : '#000000';
+        var color = 0.213 * R + 0.715 * G + 0.072 * B < 130 ? '#FFFFFF' : '#000000';
         return color;
     }
 });
