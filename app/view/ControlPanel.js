@@ -7,6 +7,7 @@
  */
 Ext.define('App.view.ControlPanel', {
     extend      : 'Ext.form.Panel',
+    requires    : 'App.view.ColorPickerField',
     alias       : 'widget.controlpanel',
     store       : 'Fonts',
     width       : 250,
@@ -71,7 +72,20 @@ Ext.define('App.view.ControlPanel', {
             }]
         },{
             title:'Colors',
-            html:'hello world'
+            defaults:{ width: 200, labelWidth:80},
+            items:[{
+                fieldLabel:'Base Color',
+                xtype: 'colorfield'
+            },{
+                fieldLabel:'Title Color',
+                xtype: 'colorfield'
+            },{
+                fieldLabel:'Body Color',
+                xtype: 'colorfield'
+            },{
+                fieldLabel:'Buttons Color',
+                xtype: 'colorfield'
+            }]
         },{
             title:'Corner Radius',
             html:'hello world'

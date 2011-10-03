@@ -7,7 +7,7 @@
  */
 Ext.Loader.setConfig({
     enabled			: true,
-    App: 'app'
+    App     : 'app'
 });
 Ext.application({
     name: 'App',
