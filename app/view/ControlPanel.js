@@ -50,6 +50,19 @@ Ext.define('App.view.ControlPanel', {
         },
         title : '2. Choose Theme Options',
         items : [{
+            title       : 'Colors',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
+            items:[{
+                fieldLabel  : 'Base Color'
+            },{
+                fieldLabel  : 'Title Color'
+            },{
+                fieldLabel  : 'Body Color'
+            },{
+                fieldLabel  : 'Buttons Color'
+            }]
+        },{
             title       : 'Fonts',
             layout      : 'anchor',
             defaultType : 'combo',
@@ -70,19 +83,6 @@ Ext.define('App.view.ControlPanel', {
                 fieldLabel  : 'Body Font'
             },{
                 fieldLabel  : 'Buttons Font'
-            }]
-        },{
-            title       : 'Colors',
-            defaults    : { width: 190, labelWidth:80 },
-            defaultType : 'colorfield',
-            items:[{
-                fieldLabel  : 'Base Color'
-            },{
-                fieldLabel  : 'Title Color'
-            },{
-                fieldLabel  : 'Body Color'
-            },{
-                fieldLabel  : 'Buttons Color'
             }]
         },{
             title       : 'Corner Radius',
@@ -128,7 +128,7 @@ Ext.define('App.view.ControlPanel', {
                 emptyText   : 'ei. 5 5 5 5'
             }]
         },{
-            title       : 'Buttons',
+            title       : 'Buttons Styles',
             defaults    : { width: 190, labelWidth:80},
             items:[{
                 xtype       : 'textfield',
