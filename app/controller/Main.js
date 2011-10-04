@@ -10,19 +10,20 @@ Ext.define('App.controller.Main', {
     stores  : ['Fonts'],
     views   : ['Preview', 'ControlPanel'],
     refs    : [{
-        // To reference this use getPreview()
+        // To reference this use this.getPreview() or me.getPreview()
         ref     : 'preview',
         selector: 'preview'
     },{
-        // To reference this use getCotrolpanel()
+        // To reference this use this.getControlpanel() or me.getControlpanel()
         ref     : 'controlpanel',
         selector: 'controlpanel'
     }],
     init: function() {
         // Set the Current theme to null at application start
         App.currTheme = null;
+        var me = this;
         // Cotroller listeners events
-        this.control({
+        me.control({
             // After Control Panel is Render Remove Loading Mask
             'controlpanel': {
                 render: function(){
@@ -33,25 +34,47 @@ Ext.define('App.controller.Main', {
             // After priview window ei render load the default theme
             'preview': {
                 render: function(){
-                    this.previewLoad();
+                    me.previewLoad();
                 }
             },
             // Tuggle Btns to change the Base Theme
             'controlpanel button[action=changebase]': {
                 click: function(button){
-                    this.changeBase(button);
+                    me.changeBase(button);
                 }
             },
             // To reload the preview using the current theme
             'controlpanel button[action=preview]': {
                 click: function(){
-                    this.previewLoad();
+                    var form = this.getControlpanel().getForm(); // get the form
+                    form.setValues([{'currTheme':App.currTheme}])
+
+
+                    if (form.isValid()) { // make sure the form is valid data before submitting
+                        form.submit({
+                            waitMsg: 'Sending...',
+                            success: function(form, action) {
+                                // The submit success will return the
+                                // /temp/folder/theme where sass compiled.
+                                // here we set App.currTheme to the result.theme value
+                                App.currTheme = action.result.theme;
+                                me.previewLoad();
+                            },
+                            failure: function(form, action) {
+                                Ext.Msg.alert(action.result.error.title, action.result.error.msg);
+                                //Ext.Msg.alert('Debugging', 'Failed');
+                            }
+                        });
+                    } else { // display error alert if the data is invalid
+                        Ext.Msg.alert('Invalid Data', 'Please correct form errors.')
+                    }
                 }
+                   
             },
             // Download handeler
             'controlpanel button[action=download]': {
                 click: function(){
-                    this.themeDowload();
+                    me.themeDowload();
                 }
             }
         });
@@ -59,6 +82,8 @@ Ext.define('App.controller.Main', {
     // Fuction to change the Base Theme
     changeBase: function(button){
         App.currTheme = button.value;
+        var field = this.getControlpanel().getForm().findField('currTheme');
+        field.setValue(App.currTheme)
         this.previewLoad();
     },
     // Preveiw paneel update

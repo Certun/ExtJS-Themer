@@ -7,9 +7,9 @@
  */
 Ext.define('App.view.Viewport', {
     extend  : 'Ext.container.Viewport',
-    layout  :'border',
+    layout  : 'border',
     defaults: { border: false, bodyStyle: { padding:5 }},
-    items   :[{
+    items   : [{
         xtype   :'container',
         region  :'north',
         id      : 'themer_header',
@@ -19,7 +19,8 @@ Ext.define('App.view.Viewport', {
         xtype   :'controlpanel',
         region  :'west',
         title   :'Theme Options',
-        margin  : '3 0 3 3'
+        margin  : '3 0 3 3',
+        url     : 'app/data/builder.php'
     },{
         xtype   :'preview',
         id      : 'previewpanel',

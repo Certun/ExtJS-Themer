@@ -13,6 +13,11 @@ Ext.define('App.view.ControlPanel', {
     autoScroll  : true,
     width       : 250,
     items: [{
+        xtype   : 'textfield',
+        name    : 'currTheme',
+        hidden  : true,
+        value   : ''
+    },{
         xtype       : 'fieldset',
         defaultType : 'button',
         layout      : 'column',
