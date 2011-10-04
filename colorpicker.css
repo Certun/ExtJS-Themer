@@ -3,7 +3,7 @@
 	background : #FFF;
 }
 .x-cp-rgbpicker {
-    background: red url(../../images/mask.png) no-repeat;
+    background: red url(images/mask.png) no-repeat;
     width: 182px;
 	height: 182px;
 	margin: 7px;
@@ -21,7 +21,7 @@
 	top: -7px;
 	width: 15px;
 	height: 15px;
-    background: url(../../images/slider-rgb.gif) no-repeat !important;
+    background: url(images/slider-rgb.gif) no-repeat !important;
     cursor: pointer;
 	_cursor: hand;
 }
@@ -31,7 +31,7 @@
 	width: 9px;
 	float: left;
 	margin: 7px 0 0 7px;
-	background-image: url(../../images/hue.png) !important;
+	background-image: url(images/hue.png) !important;
 	background-repeat: no-repeat;
 	cursor: pointer;
 	_cursor: hand;
@@ -43,7 +43,7 @@
 	top: -7px;
 	width: 15px;
 	height: 15px;
-	background-image: url(../../images/slider-rgb.gif) !important;
+	background-image: url(images/slider-rgb.gif) !important;
 	background-repeat: no-repeat;
 	cursor: pointer;
 	_cursor: hand;
@@ -77,7 +77,7 @@
 }
 
 .x-cp-leftarrow {
-	background-image: url(../../images/leftarrow.jpg) !important;
+	background-image: url(images/leftarrow.jpg) !important;
 	background-repeat: no-repeat;
 	background-position: center center;
 	padding: 0 2px 0 2px;

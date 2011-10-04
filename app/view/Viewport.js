@@ -12,7 +12,8 @@ Ext.define('App.view.Viewport', {
     items   :[{
         xtype   :'container',
         region  :'north',
-        html    :'<h1>ExtJS 4 Themer</h1>',
+        id      : 'themer_header',
+        height  : 71,
         margin  : '3 3 0 3'
     },{
         xtype   :'controlpanel',

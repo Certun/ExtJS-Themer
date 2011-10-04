@@ -10,6 +10,7 @@ Ext.define('App.view.ControlPanel', {
     requires    : 'App.view.ColorPickerField',
     alias       : 'widget.controlpanel',
     store       : 'Fonts',
+    autoScroll  : true,
     width       : 250,
     items: [{
         xtype       : 'fieldset',
@@ -29,7 +30,7 @@ Ext.define('App.view.ControlPanel', {
             action  : 'changebase',
             pressed : true
         },{
-            text    : 'Dark (Access)',
+            text    : 'Dark',
             margin  : '0 0 0 5',
             value   : 'ext-all-access',
             action  : 'changebase'
@@ -71,42 +72,86 @@ Ext.define('App.view.ControlPanel', {
                 fieldLabel  : 'Buttons Font'
             }]
         },{
-            title:'Colors',
-            defaults:{ width: 200, labelWidth:80},
+            title       : 'Colors',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
             items:[{
-                fieldLabel:'Base Color',
-                xtype: 'colorfield'
+                fieldLabel  : 'Base Color'
             },{
-                fieldLabel:'Title Color',
-                xtype: 'colorfield'
+                fieldLabel  : 'Title Color'
             },{
-                fieldLabel:'Body Color',
-                xtype: 'colorfield'
+                fieldLabel  : 'Body Color'
             },{
-                fieldLabel:'Buttons Color',
-                xtype: 'colorfield'
+                fieldLabel  : 'Buttons Color'
             }]
         },{
-            title:'Corner Radius',
-            html:'hello world'
+            title       : 'Corner Radius',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'numberfield',
+            items:[{
+                anchor      : '100%',
+                fieldLabel  : 'Panels',
+                minValue    : 0,
+                maxValue    : 25
+            },{
+                anchor      : '100%',
+                fieldLabel  : 'Windows',
+                minValue    : 0,
+                maxValue    : 25
+            },{
+                anchor      : '100%',
+                fieldLabel  : 'Buttons',
+                minValue    : 0,
+                maxValue    : 25
+            }]
         },{
-            title:'Headers Styles',
-            html:'hello world'
+            title       : 'Headers Styles',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'textfield',
+            items:[{
+                fieldLabel  : 'Margin',
+                emptyText   : 'ei. 5 5 5 5'
+            },{
+                fieldLabel  : 'Padding',
+                emptyText   : 'ei. 5 5 5 5'
+            }]
         },{
-            title:'Body Styles',
-            html:'hello world'
+            title       : 'Body Styles',
+            defaults    : { width: 190, labelWidth:80 },
+            items:[{
+                xtype       : 'textfield',
+                fieldLabel  : 'Margin',
+                emptyText   : 'ei. 5 5 5 5'
+            },{
+                xtype       : 'textfield',
+                fieldLabel  : 'Padding',
+                emptyText   : 'ei. 5 5 5 5'
+            }]
         },{
-            title:'Buttons',
-            html:'hello world'
+            title       : 'Buttons',
+            defaults    : { width: 190, labelWidth:80},
+            items:[{
+                xtype       : 'textfield',
+                anchor      : '100%',
+                fieldLabel  : 'Margin',
+                emptyText   : 'ei. 5 5 5 5'
+            },{
+                xtype       : 'textfield',
+                anchor      : '100%',
+                fieldLabel  : 'Padding',
+                emptyText   : 'ei. 5 5 5 5'
+            }]
         },{
-            title:'Drop Shadows',
-            html:'hello world'
-        },{
-            title:'Erors',
-            html:'hello world'
-        },{
-            title:'Other',
-            html:'hello world'
+            title       :'Custom Styles',
+            items:[{
+                xtype       : 'displayfield',
+                labelWidth  : 190,
+                fieldLabel  : 'Copy and Paste your custom CSS style sheet'
+            },{
+                xtype       : 'textarea',
+                width       : 190,
+                height      : 200
+            }]
         }]
     },{
         xtype       : 'fieldset',
