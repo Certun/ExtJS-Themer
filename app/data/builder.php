@@ -39,7 +39,7 @@ $error          = false;                            // error set to false by def
 // *****************************************************************************************************
 if (!file_exists($theme_path)){
     // working!! commented for now
-    mkdir($theme_path, 0777, true );
+    // mkdir($theme_path, 0777, true );
 }
 
 
