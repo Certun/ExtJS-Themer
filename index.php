@@ -1,3 +1,14 @@
+<?php
+session_start();
+// *****************************************************************************************
+// get full root path
+// *****************************************************************************************
+if (DIRECTORY_SEPARATOR=='/'){
+  $_SESSION['root'] = dirname(__FILE__).'/';
+}else{
+  $_SESSION['root'] = str_replace('\\', '/', dirname(__FILE__)).'/';
+}
+?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
