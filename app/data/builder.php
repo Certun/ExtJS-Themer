@@ -82,16 +82,18 @@ copy_directory( $theme_template_path, $theme_path );
 // *****************************************************************************************************
 // Compilie new theme
 // *****************************************************************************************************
+
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<-----------------------// If windows...
-    $WshShell = new COM('WScript.Shell');
-    $oExec = $WshShell->Run('compass compile '.$win_sass_dir_path, 0, true);
+    //echo $win_sass_dir_path;
+    $WshShell = new COM('WScript.Shell') or die ("Could not initialise WScript.Shell object.");;
+    $oExec = $WshShell->Run('compass compile '.$win_sass_dir_path, 7, true);
 } else { //<<----------------------------------------------------------------// not windows...
     $oExec = shell_exec('compass compile '.$sass_dir_path);
 }
-if ($oExec == 1){ //<<-------------------------------------------------------// manage compile error...
-    $error = true;
-}
-// *****************************************************************************************************
+//if ($oExec == 1){ //<<-------------------------------------------------------// manage compile error...
+//    $error = true;
+//}
+/// *****************************************************************************************************
 // Log activity
 // *****************************************************************************************************
 
