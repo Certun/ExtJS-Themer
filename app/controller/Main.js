@@ -94,21 +94,17 @@ Ext.define('App.controller.Main', {
         // Set Defuault Theme
             if (App.themeTemplate == null){
                 App.workingTheme = 'resources/css/ext-all.css'
-                alert('template = null');  // <<<----------------------------------------// debugging
             }else{
                 if (App.workingTheme == null){
                     switch (App.themeTemplate){
                         case 'gray':
                             App.workingTheme = 'resources/css/ext-all-gray.css'
-                            alert('template = gray');   // <<<---------------------------// debugging
                         break;
                         case 'access':
                             App.workingTheme = 'resources/css/ext-all-access.css'
-                            alert('template = access');   // <<<-------------------------// debugging
                         break;
                         default:
                         App.workingTheme = 'resources/css/ext-all.css'
-                        alert('template = default');   // <<<----------------------------// debugging
                     }
                 }
             }

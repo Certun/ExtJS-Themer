@@ -26,8 +26,8 @@ function ecrypt_session_id($str){
         $char      = chr(ord($char)+ord($keychar));
         $result   .= $char;
     }
-    $url_safe     = strtr(base64_encode($result), '+/=', '-_,');
-    return base64_encode($url_safe);
+    $url_safe     = rtrim(base64_encode($result),'+=/');
+    return $url_safe;
 }
 function copy_directory( $source, $destination ) {
 	if ( is_dir( $source ) ) {
@@ -86,7 +86,7 @@ copy_directory( $theme_template_path, $theme_path );
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<-----------------------// If windows...
     //echo $win_sass_dir_path;
     $WshShell = new COM('WScript.Shell') or die ("Could not initialise WScript.Shell object.");;
-    $oExec = $WshShell->Run('compass compile '.$win_sass_dir_path, 7, true);
+    $oExec = $WshShell->Run('compass compile '.$win_sass_dir_path, 0, true);
 } else { //<<----------------------------------------------------------------// not windows...
     $oExec = shell_exec('compass compile '.$sass_dir_path);
 }
