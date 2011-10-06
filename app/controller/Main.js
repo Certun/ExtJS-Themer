@@ -20,7 +20,8 @@ Ext.define('App.controller.Main', {
     }],
     init: function() {
         // Set the Current theme to null at application start
-        App.currTheme = null;
+        App.workingTheme = null;
+        App.themeTemplate= null;
         var me = this;
         // Cotroller listeners events
         me.control({
@@ -47,17 +48,18 @@ Ext.define('App.controller.Main', {
             'controlpanel button[action=preview]': {
                 click: function(){
                     var form = this.getControlpanel().getForm(); // get the form
-                    form.setValues([{'currTheme':App.currTheme}])
+                    form.setValues([{'workingTheme':App.workingTheme}]);
 
 
                     if (form.isValid()) { // make sure the form is valid data before submitting
                         form.submit({
-                            waitMsg: 'Sending...',
+                            waitTitle: 'Compiling...',
+                            waitMsg: 'Don\'t go, Be Right back!',
                             success: function(form, action) {
                                 // The submit success will return the
                                 // /temp/folder/theme where sass compiled.
-                                // here we set App.currTheme to the result.theme value
-                                App.currTheme = action.result.theme;
+                                // here we set App.workingTheme to the result.theme value
+                                App.workingTheme = action.result.theme;
                                 me.previewLoad();
                             },
                             failure: function(form, action) {
@@ -69,7 +71,6 @@ Ext.define('App.controller.Main', {
                         Ext.Msg.alert('Invalid Data', 'Please correct form errors.')
                     }
                 }
-                   
             },
             // Download handeler
             'controlpanel button[action=download]': {
@@ -81,17 +82,39 @@ Ext.define('App.controller.Main', {
     },
     // Fuction to change the Base Theme
     changeBase: function(button){
-        App.currTheme = button.value;
-        var field = this.getControlpanel().getForm().findField('currTheme');
-        field.setValue(App.currTheme)
+        App.workingTheme    = null;
+        App.themeTemplate   = button.value
+
+        var field = this.getControlpanel().getForm().findField('themeTemplate');
+        field.setValue(App.themeTemplate);
         this.previewLoad();
     },
     // Preveiw paneel update
     previewLoad:function(){
         // Set Defuault Theme
-        App.currTheme = (App.currTheme == null) ? 'ext-all-gray' : App.currTheme;
+            if (App.themeTemplate == null){
+                App.workingTheme = 'resources/css/ext-all.css'
+                alert('template = null');  // <<<----------------------------------------// debugging
+            }else{
+                if (App.workingTheme == null){
+                    switch (App.themeTemplate){
+                        case 'gray':
+                            App.workingTheme = 'resources/css/ext-all-gray.css'
+                            alert('template = gray');   // <<<---------------------------// debugging
+                        break;
+                        case 'access':
+                            App.workingTheme = 'resources/css/ext-all-access.css'
+                            alert('template = access');   // <<<-------------------------// debugging
+                        break;
+                        default:
+                        App.workingTheme = 'resources/css/ext-all.css'
+                        alert('template = default');   // <<<----------------------------// debugging
+                    }
+                }
+            }
+         alert(App.workingTheme)  // <<<-------------------------------------------------// debugging
         // Update preview panel with new theme
-        this.getPreview().update({ html:'<iframe src="theme.php?theme='+App.currTheme+'" frameborder="0" width="100%" height="100%"></iframe>' });
+        this.getPreview().update({ html:'<iframe src="theme.php?theme='+App.workingTheme+'" frameborder="0" width="100%" height="100%"></iframe>' });
     },
     // Download request
     themeDowload: function(){

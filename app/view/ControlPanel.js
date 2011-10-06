@@ -14,7 +14,7 @@ Ext.define('App.view.ControlPanel', {
     width       : 250,
     items: [{
         xtype   : 'textfield',
-        name    : 'currTheme',
+        name    : 'themeTemplate',
         hidden  : true,
         value   : ''
     },{
@@ -26,18 +26,17 @@ Ext.define('App.view.ControlPanel', {
         items:[{
             text    : 'Blue',
             margin  : '0 5 0 0',
-            value   : 'ext-all',
+            value   : 'default',
             action  : 'changebase'
         },{
             text    : 'Gray',
             margin  : '0 5 0 5',
-            value   : 'ext-all-gray',
-            action  : 'changebase',
-            pressed : true
+            value   : 'gray',
+            action  : 'changebase'
         },{
             text    : 'Dark',
             margin  : '0 0 0 5',
-            value   : 'ext-all-access',
+            value   : 'access',
             action  : 'changebase'
         }]
     },{
