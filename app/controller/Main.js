@@ -53,18 +53,15 @@ Ext.define('App.controller.Main', {
 
                     if (form.isValid()) { // make sure the form is valid data before submitting
                         form.submit({
-                            //waitTitle: 'Compiling...',
-                            //waitMsg: 'Don\'t go, Be Right back!',
-                            success: function(form, action) {
-                                // The submit success will return the
-                                // /temp/folder/theme where sass compiled.
-                                // here we set App.workingTheme to the result.theme value
+                            waitTitle   : 'Compiling...',
+                            waitMsg     : 'Please Don\'t Go, Be Right back!',
+                            success     : function(form, action) {
+                                // The submit success will return the workigTheme css
                                 App.workingTheme = action.result.theme;
                                 me.previewLoad();
                             },
-                            failure: function(form, action) {
+                            failure     : function(form, action) {
                                 Ext.Msg.alert(action.result.error.title, action.result.error.msg);
-                                //Ext.Msg.alert('Debugging', 'Failed');
                             }
                         });
                     } else { // display error alert if the data is invalid
@@ -92,22 +89,22 @@ Ext.define('App.controller.Main', {
     // Preveiw paneel update
     previewLoad:function(){
         // Set Defuault Theme
-            if (App.themeTemplate == null){
-                App.workingTheme = 'resources/css/ext-all.css'
-            }else{
-                if (App.workingTheme == null){
-                    switch (App.themeTemplate){
-                        case 'gray':
-                            App.workingTheme = 'resources/css/ext-all-gray.css'
-                        break;
-                        case 'access':
-                            App.workingTheme = 'resources/css/ext-all-access.css'
-                        break;
-                        default:
-                        App.workingTheme = 'resources/css/ext-all.css'
-                    }
+        if (App.themeTemplate == null){
+            App.workingTheme = 'resources/css/ext-all.css'
+        }else{
+            if (App.workingTheme == null){
+                switch (App.themeTemplate){
+                    case 'gray':
+                        App.workingTheme = 'resources/css/ext-all-gray.css'
+                    break;
+                    case 'access':
+                        App.workingTheme = 'resources/css/ext-all-access.css'
+                    break;
+                    default:
+                    App.workingTheme = 'resources/css/ext-all.css'
                 }
             }
+        }
          alert(App.workingTheme)  // <<<-------------------------------------------------// debugging
         // Update preview panel with new theme
         this.getPreview().update({ html:'<iframe src="theme.php?theme='+App.workingTheme+'" frameborder="0" width="100%" height="100%"></iframe>' });

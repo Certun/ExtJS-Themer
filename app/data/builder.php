@@ -15,12 +15,11 @@ session_start();
 // *****************************************************************************************************
 $data = $_POST;
 // *****************************************************************************************************
-// funtion to encrypt session id and copy directories
+// funtions repository area  :o)
 // *****************************************************************************************************
-
-function ecrypt_session_id($str){
-    $result   = '';
-    $key      = 'seguridad';
+function ecrypt_session_id($str) { //<<---------------------// This funtion will encrypt the
+    $result   = '';                                         // session id too create a url
+    $key      = 'seguridad';                                // safe temp directory.
     for($i=0; $i<strlen($str); $i++) {
         $char      = substr($str, $i, 1);
         $keychar   = substr($key, ($i % strlen($key))-1, 1);
@@ -30,10 +29,10 @@ function ecrypt_session_id($str){
     $url_safe     = rtrim(base64_encode($result),'+=/');
     return $url_safe;
 }
-function copy_directory( $source, $destination ) {
-	if ( is_dir( $source ) ) {
-		@mkdir( $destination );
-		chmod($destination, 0777);
+function copy_directory( $source, $destination ) { //<<-----// This funtion will copy template
+	if ( is_dir( $source ) ) {                              // dir to temp dir, chmod directires
+		@mkdir( $destination );                             // to 0755, and chmod files to 0644.
+		chmod($destination, 0755);
         $directory = dir( $source );
 		while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
 			if ( $readdirectory == '.' || $readdirectory == '..' ) {
@@ -42,52 +41,48 @@ function copy_directory( $source, $destination ) {
 			$PathDir = $source . '/' . $readdirectory;
 			if ( is_dir( $PathDir ) ) {
 				copy_directory( $PathDir, $destination . '/' . $readdirectory );
-                chmod($destination . '/' . $readdirectory, 0777);
+                chmod($destination . '/' . $readdirectory, 0755);
 				continue;
 			}
 			copy( $PathDir, $destination . '/' . $readdirectory );
-            chmod($destination . '/' . $readdirectory, 0777);
+            chmod($destination . '/' . $readdirectory, 0755);
 		}
 		$directory->close();
 	}else {
 		copy( $source, $destination );
-        chmod($destination, 0777);
+        chmod($destination, 0644);
 	}
 }
-function chmod_R($path, $filemode, $dirmode) {
-    if (is_dir($path) ) {
-        $dh = opendir($path);
-        while (($file = readdir($dh)) !== false) {
-            if($file != '.' && $file != '..') {  // skip self and parent pointing directories
-                $fullpath = $path.'/'.$file;
-                chmod_R($fullpath, $filemode,$dirmode);
-            }
-        }
-        closedir($dh);
-    } 
-}
-
 // *****************************************************************************************************
 // Lets define a few variables values
 // *****************************************************************************************************
-$root                 = $_SESSION['root'];                                  // defined at index.php
-$template             = $_POST['themeTemplate']."/";                        // $_POST["theme_template"];
-$tmp_dir              = 'tmp/';                                             // define the temporary dir
-$theme_dir            = ecrypt_session_id(session_id());                    // encrypt the theme dir name
-$theme_path           = $root . $tmp_dir . $theme_dir;                      // full path apended
-$workingTheme         = $tmp_dir.$theme_dir."/resources/css/new-theme.css"; // compiled css style
-$theme_template       = "theme_templates/".$template;                       // template (gray/access/default)
-$theme_template_path  = $root."/".$theme_template;                          // template path
-$sass_dir_path        = $theme_path . '/resources/sass';                    // sass dir to compile
-$win_sass_dir_path    = str_replace('/','\\',$sass_dir_path);               // sass dir to compile (windows)
-$error                = false;                                              // error set to false by default
+$root                 = $_SESSION['root']; //<<-----------------------------// defined at index.php
+$template             = $_POST['themeTemplate']."/"; //<<-------------------// $_POST gray/access/default
+$tmp_dir              = 'tmp/'; //<<----------------------------------------// define the temporary dir
+$theme_dir            = ecrypt_session_id(session_id()); //<<---------------// encrypted url safe theme dir
+$theme_path           = $root . $tmp_dir . $theme_dir; //<<-----------------// $theme_dir full path
+$workingTheme         = $tmp_dir.$theme_dir."/resources/css/new-theme.css"; // compiled css style send @ callback
+$theme_template       = "theme_templates/".$template; //<<------------------// template use to create tmp folder
+$theme_template_path  = $root."/".$theme_template; //<<---------------------// $theme_template full path
+$sass_dir_path        = $theme_path . '/resources/sass'; //<<---------------// sass dir to compile
+$win_sass_dir_path    = str_replace('/','\\',$sass_dir_path); //<<----------// $sass_dir_path (windows)
+$error                = false; //<<-----------------------------------------// error set to false by default
+// *****************************************************************************************************
+// Lets clean the tmp/ directory of old stuff
+// *****************************************************************************************************
+foreach (glob($root . $tmp_dir.'*') as $Filename) {
+    $FileCreationTime = filectime($Filename); //<<--------------------------// Read file creation time
+    $FileAge = time() - $FileCreationTime; //<<-----------------------------// Calculate file age in seconds
+    if ($FileAge > (10 * 60) && $Filename != $root.$tmp_dir.'README'){ //<<-// If more than 10 min
+        unlink($Filename); //<<---------------------------------------------// Delete file
+    }
+}
 // *****************************************************************************************************
 // Check if theme path exist... if not, lets make it!
 // *****************************************************************************************************
 if (!file_exists($theme_path)){
-    mkdir($theme_path, 0777, true);
-    chmod($theme_path, 0777);
-
+    mkdir($theme_path, 0755, true);
+    chmod($theme_path, 0755);
 }
 // *****************************************************************************************************
 // Copy theme template to temp folder
@@ -100,28 +95,19 @@ copy_directory( $theme_template_path, $theme_path );
 // TODO: Thinking!!!
 
 // *****************************************************************************************************
-// Compilie new theme
+// Compilie new theme  ||  sass -v 3.1.1 is required
 // *****************************************************************************************************
-
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<-----------------------// If windows...
-    //echo $win_sass_dir_path;
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<----------------------// If windows...
     $WshShell = new COM('WScript.Shell') or die ("Could not initialise WScript.Shell object.");;
-    $oExec = $WshShell->Run('compass compile '.$win_sass_dir_path, 0, true);
-} else { //<<----------------------------------------------------------------// not windows...
-
-    $cmd = 'gem list';
-    exec( $cmd, $results, $err);
-
-    echo '<pre>';
-    print_r($cmd);
-    echo '<br/>';
-    print_r($results);
-    echo '</pre>';
+    $wErr = $WshShell->Run('compass compile '.$win_sass_dir_path, 0, true);
+} else { //<<---------------------------------------------------------------// not windows...
+    $cmd = 'compass compile '.$sass_dir_path;
+    exec( $cmd, $exec_results, $uErr);
 }
-//if ($oExec == 1){ //<<-------------------------------------------------------// manage compile error...
-//    $error = true;
-//}
-/// *****************************************************************************************************
+if ($wErr == 1 || $uErr == 127 ){ //<<--------------------------------------// manage compile error...
+    $error = true;
+}
+// *****************************************************************************************************
 // Log activity
 // *****************************************************************************************************
 
@@ -132,7 +118,9 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<-----------------------// 
 // *****************************************************************************************************
 // $error = true;
 // echo '<pre>';
+// print_r($cmd);
 // print_r($data);
+// print_r($sass_dir_path);
 // echo '</pre>';
 
 // *****************************************************************************************************
