@@ -105,7 +105,7 @@ Ext.define('App.controller.Main', {
                 }
             }
         }
-        alert(App.workingTheme)  // <<<-------------------------------------------------// debugging
+        console.log(App.workingTheme)  // <<<------------// debugging
         var time = new Date();
         // Update preview panel with new theme
         this.getPreview().update({ html:'<iframe src="theme.php?theme='+App.workingTheme+'?'+Ext.Date.format(time, 'U')+'" frameborder="0" width="100%" height="100%"></iframe>' });
