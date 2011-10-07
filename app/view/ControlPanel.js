@@ -16,7 +16,7 @@ Ext.define('App.view.ControlPanel', {
         xtype   : 'textfield',
         name    : 'themeTemplate',
         hidden  : true,
-        value   : ''
+        value   : 'default'
     },{
         xtype       : 'fieldset',
         defaultType : 'button',
@@ -58,7 +58,8 @@ Ext.define('App.view.ControlPanel', {
             defaults    : { width: 190, labelWidth:80 },
             defaultType : 'colorfield',
             items:[{
-                fieldLabel  : 'Base Color'
+                fieldLabel  : 'Base Color',
+                name        : 'base_color'
             },{
                 fieldLabel  : 'Title Color'
             },{

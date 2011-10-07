@@ -91,6 +91,7 @@ $tmp_dir              = 'tmp/'; //<<----------------------------------------// d
 $theme_dir            = ecrypt_session_id(session_id()); //<<---------------// encrypted url safe theme dir
 $theme_path           = $root . $tmp_dir . $theme_dir; //<<-----------------// $theme_dir full path
 $workingTheme         = $tmp_dir.$theme_dir."/resources/css/new-theme.css"; // compiled css style send @ callback
+$workingThemeScss     = $theme_path."/resources/sass/new-theme.scss";
 $theme_template       = "theme_templates/".$template; //<<------------------// template use to create tmp folder
 $theme_template_path  = $root."/".$theme_template; //<<---------------------// $theme_template full path
 $sass_dir_path        = $theme_path . '/resources/sass'; //<<---------------// sass dir to compile
@@ -125,6 +126,21 @@ copy_directory( $theme_template_path, $theme_path );
 
 // TODO: Thinking!!!
 
+// need to work with this....
+$base_color = $_POST['base_color'] == null ? '' : '$base-color:'.$_POST['base_color'].';';
+
+$search     = array('%base_color%');
+$replace    = array($base_color);
+
+
+// this is done.....
+$buffer     = file_get_contents($workingThemeScss);
+$new_scss   = str_replace($search, $replace, $buffer);
+$handle     = fopen($workingThemeScss, "w");
+fwrite($handle, $new_scss);
+fclose($handle);
+
+
 // *********************************************************************************************************************
 // Compilie new theme  ||  sass -v 3.1.1 is required
 // *********************************************************************************************************************
@@ -136,7 +152,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<----------------------// I
     exec( $cmd, $exec_results, $uErr);
 }
 if ($wErr == 1 || $uErr == 127 ){ //<<--------------------------------------// manage compile error...
-    $error = true;
+    //$error = true;
 }
 // *********************************************************************************************************************
 // Log activity
