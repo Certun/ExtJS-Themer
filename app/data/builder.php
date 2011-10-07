@@ -17,9 +17,9 @@ $data = $_POST;
 // *********************************************************************************************************************
 // funtions repository area  :o)
 // *********************************************************************************************************************
-function ecrypt_session_id($str) { //<<---------------------// This funtion will encrypt the
-    $result   = '';                                         // session id too create a url
-    $key      = 'seguridad';                                // safe temp directory.
+function ecrypt_session_id($str) { //<<-------------------------------------// This funtion will encrypt the
+    $result   = '';                                                         // session id too create a url
+    $key      = 'seguridad';                                                // safe temp directory.
     for($i=0; $i<strlen($str); $i++) {
         $char      = substr($str, $i, 1);
         $keychar   = substr($key, ($i % strlen($key))-1, 1);
@@ -29,9 +29,9 @@ function ecrypt_session_id($str) { //<<---------------------// This funtion will
     $url_safe     = rtrim(base64_encode($result),'+=/');
     return $url_safe;
 }
-function copy_directory( $source, $destination ) { //<<-----// This funtion will copy template
-	if ( is_dir( $source ) ) {                              // dir to temp dir, chmod directires
-		@mkdir( $destination );                             // to 0755, and chmod files to 0644.
+function copy_directory( $source, $destination ) { //<<---------------------// This funtion will copy template
+	if ( is_dir( $source ) ) {                                              // dir to temp dir, chmod directires
+		@mkdir( $destination );                                             // to 0755, and chmod files to 0644.
 		chmod($destination, 0755);
         $directory = dir( $source );
 		while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
@@ -53,8 +53,8 @@ function copy_directory( $source, $destination ) { //<<-----// This funtion will
         chmod($destination, 0644);
 	}
 }
-function deleteAll($directory, $empty = false) { //<<-------// This funtion will delete a dir
-    if(substr($directory,-1) == "/") {                      // and all its content.
+function deleteAll($directory, $empty = false) { //<<-----------------------// This funtion will delete a dir
+    if(substr($directory,-1) == "/") {                                      // and all its content.
         $directory = substr($directory,0,-1);
     }
     if(!file_exists($directory) || !is_dir($directory)) {
