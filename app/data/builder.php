@@ -17,6 +17,7 @@ $data = $_POST;
 // *****************************************************************************************************
 // funtion to encrypt session id and copy directories
 // *****************************************************************************************************
+
 function ecrypt_session_id($str){
     $result   = '';
     $key      = 'seguridad';
@@ -32,7 +33,8 @@ function ecrypt_session_id($str){
 function copy_directory( $source, $destination ) {
 	if ( is_dir( $source ) ) {
 		@mkdir( $destination );
-		$directory = dir( $source );
+		chmod($destination, 0777);
+        $directory = dir( $source );
 		while ( FALSE !== ( $readdirectory = $directory->read() ) ) {
 			if ( $readdirectory == '.' || $readdirectory == '..' ) {
 				continue;
@@ -40,15 +42,31 @@ function copy_directory( $source, $destination ) {
 			$PathDir = $source . '/' . $readdirectory;
 			if ( is_dir( $PathDir ) ) {
 				copy_directory( $PathDir, $destination . '/' . $readdirectory );
+                chmod($destination . '/' . $readdirectory, 0777);
 				continue;
 			}
 			copy( $PathDir, $destination . '/' . $readdirectory );
+            chmod($destination . '/' . $readdirectory, 0777);
 		}
 		$directory->close();
 	}else {
 		copy( $source, $destination );
+        chmod($destination, 0777);
 	}
 }
+function chmod_R($path, $filemode, $dirmode) {
+    if (is_dir($path) ) {
+        $dh = opendir($path);
+        while (($file = readdir($dh)) !== false) {
+            if($file != '.' && $file != '..') {  // skip self and parent pointing directories
+                $fullpath = $path.'/'.$file;
+                chmod_R($fullpath, $filemode,$dirmode);
+            }
+        }
+        closedir($dh);
+    } 
+}
+
 // *****************************************************************************************************
 // Lets define a few variables values
 // *****************************************************************************************************
@@ -67,14 +85,16 @@ $error                = false;                                              // e
 // Check if theme path exist... if not, lets make it!
 // *****************************************************************************************************
 if (!file_exists($theme_path)){
-    mkdir($theme_path, 0777, true );
+    mkdir($theme_path, 0777, true);
+    chmod($theme_path, 0777);
+
 }
 // *****************************************************************************************************
 // Copy theme template to temp folder
 // *****************************************************************************************************
 copy_directory( $theme_template_path, $theme_path );
 // *****************************************************************************************************
-// Handle the theme logic / sass / shell_exec() stuff
+// Handle the theme logic / sass vars /
 // *****************************************************************************************************
 
 // TODO: Thinking!!!
@@ -88,7 +108,10 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<-----------------------// 
     $WshShell = new COM('WScript.Shell') or die ("Could not initialise WScript.Shell object.");;
     $oExec = $WshShell->Run('compass compile '.$win_sass_dir_path, 0, true);
 } else { //<<----------------------------------------------------------------// not windows...
-    $oExec = shell_exec('compass compile '.$sass_dir_path);
+
+    exec('compass compile '.$sass_dir_path);
+
+    //print $sass_dir_path .'<br/>';
 }
 //if ($oExec == 1){ //<<-------------------------------------------------------// manage compile error...
 //    $error = true;

@@ -53,8 +53,8 @@ Ext.define('App.controller.Main', {
 
                     if (form.isValid()) { // make sure the form is valid data before submitting
                         form.submit({
-                            waitTitle: 'Compiling...',
-                            waitMsg: 'Don\'t go, Be Right back!',
+                            //waitTitle: 'Compiling...',
+                            //waitMsg: 'Don\'t go, Be Right back!',
                             success: function(form, action) {
                                 // The submit success will return the
                                 // /temp/folder/theme where sass compiled.
