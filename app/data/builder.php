@@ -53,6 +53,35 @@ function copy_directory( $source, $destination ) { //<<-----// This funtion will
         chmod($destination, 0644);
 	}
 }
+function deleteAll($directory, $empty = false) { //<<-------// This funtion will delete a dir
+    if(substr($directory,-1) == "/") {                      // and all its content.
+        $directory = substr($directory,0,-1);
+    }
+    if(!file_exists($directory) || !is_dir($directory)) {
+        return false;
+    } elseif(!is_readable($directory)) {
+        return false;
+    } else {
+        $directoryHandle = opendir($directory);
+
+        while ($contents = readdir($directoryHandle)) {
+            if($contents != '.' && $contents != '..') {
+                $path = $directory . "/" . $contents;
+
+                if(is_dir($path)) {
+                    deleteAll($path);
+                } else {
+                    unlink($path);
+                }
+            }
+        }
+        closedir($directoryHandle);
+        if(!rmdir($directory)) {
+            return false;
+        }
+        return true;
+    }
+}
 // *****************************************************************************************************
 // Lets define a few variables values
 // *****************************************************************************************************
@@ -73,8 +102,8 @@ $error                = false; //<<-----------------------------------------// e
 foreach (glob($root . $tmp_dir.'*') as $Filename) {
     $FileCreationTime = filectime($Filename); //<<--------------------------// Read file creation time
     $FileAge = time() - $FileCreationTime; //<<-----------------------------// Calculate file age in seconds
-    if ($FileAge > (10 * 60) && $Filename != $root.$tmp_dir.'README'){ //<<-// If more than 10 min
-        unlink($Filename); //<<---------------------------------------------// Delete file
+    if ($FileAge > (60 * 60) && $Filename != $root.$tmp_dir.'README'){ //---// If more than 10 min
+        deleteAll($Filename); //<<------------------------------------------// Delete file
     }
 }
 // *****************************************************************************************************
