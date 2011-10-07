@@ -109,9 +109,14 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<-----------------------// 
     $oExec = $WshShell->Run('compass compile '.$win_sass_dir_path, 0, true);
 } else { //<<----------------------------------------------------------------// not windows...
 
-    exec('compass compile '.$sass_dir_path);
+    $cmd = 'gem list';
+    exec( $cmd, $results, $err);
 
-    //print $sass_dir_path .'<br/>';
+    echo '<pre>';
+    print_r($cmd);
+    echo '<br/>';
+    print_r($results);
+    echo '</pre>';
 }
 //if ($oExec == 1){ //<<-------------------------------------------------------// manage compile error...
 //    $error = true;
