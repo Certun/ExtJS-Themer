@@ -95,10 +95,10 @@ Ext.define('App.controller.Main', {
             if (App.workingTheme == null){
                 switch (App.themeTemplate){
                     case 'gray':
-                        App.workingTheme = 'resources/css/ext-all-gray.css'
+                        App.workingTheme = 'resources/css/ext-all-gray.css';
                     break;
                     case 'access':
-                        App.workingTheme = 'resources/css/ext-all-access.css'
+                        App.workingTheme = 'resources/css/ext-all-access.css';
                     break;
                     default:
                     App.workingTheme = 'resources/css/ext-all.css'

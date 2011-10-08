@@ -85,18 +85,19 @@ function deleteAll($directory, $empty = false) { //<<-----------------------// T
 // *********************************************************************************************************************
 // Lets define a few variables values
 // *********************************************************************************************************************
-$root                 = $_SESSION['root']; //<<-----------------------------// defined at index.php
-$template             = $_POST['themeTemplate']."/"; //<<-------------------// $_POST gray/access/default
-$tmp_dir              = 'tmp/'; //<<----------------------------------------// define the temporary dir
-$theme_dir            = ecrypt_session_id(session_id()); //<<---------------// encrypted url safe theme dir
-$theme_path           = $root . $tmp_dir . $theme_dir; //<<-----------------// $theme_dir full path
-$workingTheme         = $tmp_dir.$theme_dir."/resources/css/new-theme.css"; // compiled css style send @ callback
-$workingThemeScss     = $theme_path."/resources/sass/new-theme.scss";
-$theme_template       = "theme_templates/".$template; //<<------------------// template use to create tmp folder
-$theme_template_path  = $root."/".$theme_template; //<<---------------------// $theme_template full path
-$sass_dir_path        = $theme_path . '/resources/sass'; //<<---------------// sass dir to compile
-$win_sass_dir_path    = str_replace('/','\\',$sass_dir_path); //<<----------// $sass_dir_path (windows)
-$error                = false; //<<-----------------------------------------// error set to false by default
+$root                       = $_SESSION['root']; //<<-----------------------------// defined at index.php
+$template                   = $_POST['themeTemplate']."/"; //<<-------------------// $_POST gray/access/default
+$tmp_dir                    = 'tmp/'; //<<----------------------------------------// define the temporary dir
+$theme_dir                  = ecrypt_session_id(session_id()); //<<---------------// encrypted url safe theme dir
+$theme_path                 = $root . $tmp_dir . $theme_dir; //<<-----------------// $theme_dir full path
+$workingTheme               = $tmp_dir.$theme_dir."/resources/css/new-theme.css"; // compiled css style send @ callback
+$workingThemeScss           = $theme_path."/resources/sass/new-theme.scss";
+$theme_template             = "theme_templates/".$template; //<<------------------// template use to create tmp folder
+$theme_template_path        = $root."/".$theme_template; //<<---------------------// $theme_template full path
+$sass_dir_path              = $theme_path . '/resources/sass'; //<<---------------// sass dir to compile
+$win_sass_dir_path          = str_replace('/','\\',$sass_dir_path); //<<----------// $sass_dir_path (windows)
+$error                      = false; //<<-----------------------------------------// error set to false by default
+$_SESSION['theme_path']     = $theme_path; //<<-----------------------------------// save tmp theme_path for download
 // *********************************************************************************************************************
 // Lets clean the tmp/ directory of old stuff
 // *********************************************************************************************************************
