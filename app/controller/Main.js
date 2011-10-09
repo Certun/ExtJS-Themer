@@ -53,8 +53,9 @@ Ext.define('App.controller.Main', {
 
                     if (form.isValid()) { // make sure the form is valid data before submitting
                         form.submit({
-                            waitTitle   : 'Compiling...',
-                            waitMsg     : 'Please Don\'t Go, Be Right back!',
+                            waitTitle     : 'Compiling...',
+                            waitMsg       : 'Please Don\'t Go, Be Right back!',
+                            submitEmptyText : false,
                             success     : function(form, action) {
                                 // The submit success will return the workigTheme css
                                 App.workingTheme = action.result.theme;

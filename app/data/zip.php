@@ -28,11 +28,13 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<----------------------// I
     $WshShell       = new COM('WScript.Shell');
     $wErr           = $WshShell->Run('winrar a -r -afzip -ep1 '.$win_download_pkg.' '.$win_dir_to_zip, 0, true);
     $download_pkg   = $win_download_pkg;
+    $download_url   = $theme_dir.'/new_theme.zip';
 } else { //<<---------------------------------------------------------------// not windows...
     exec('cd '.$theme_path.'; tar cf new_theme.tar.gz resources');
+    $download_url = $theme_dir.'/new_theme.tar.gz';
 }
 chmod($download_pkg, 0755);
-$download_url = $theme_dir.'/new_theme.tar.gz';
+
 // *********************************************************************************************************************
 // check for $error and sent callback
 // *********************************************************************************************************************

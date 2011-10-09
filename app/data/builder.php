@@ -103,18 +103,18 @@ $_SESSION['theme_dir']      = $tmp_dir.$theme_dir;
 // Lets clean the tmp/ directory of old stuff
 // *********************************************************************************************************************
 foreach (glob($root . $tmp_dir.'*') as $Filename) {
-    $FileCreationTime = filectime($Filename); //<<--------------------------// Read file creation time
-    $FileAge = time() - $FileCreationTime; //<<-----------------------------// Calculate file age in seconds
-    if ($FileAge > (60 * 60) && $Filename != $root.$tmp_dir.'README'){ //---// If more than 10 min
-        deleteAll($Filename); //<<------------------------------------------// Delete file
+    $FileCreationTime = filectime($Filename); //<<--------------------------------// Read file creation time
+    $FileAge = time() - $FileCreationTime; //<<-----------------------------------// Calculate file age in seconds
+    if ($FileAge > (60 * 60) && $Filename != $root.$tmp_dir.'README'){ //<<-------// If more than 10 min
+        deleteAll($Filename); //<<------------------------------------------------// Delete file
     }
 }
 // *********************************************************************************************************************
 // Check if theme path exist...
 // *********************************************************************************************************************
-if (file_exists($theme_path)){ //<<-----------------------------------------// if axist let delete it's content
+if (file_exists($theme_path)){ //<<-----------------------------------------------// if axist let delete it's content
      deleteAll($theme_path."/");
-}else{ //<<-----------------------------------------------------------------// if not then creatated
+}else{ //<<-----------------------------------------------------------------------// if not then creatated
     mkdir($theme_path, 0755, true);
     chmod($theme_path, 0755);
 }
@@ -125,36 +125,31 @@ copy_directory( $theme_template_path, $theme_path );
 // *********************************************************************************************************************
 // Handle the theme logic / sass vars /
 // *********************************************************************************************************************
-
-// TODO: Thinking!!!
-
-// need to work with this....
-$base_color = $_POST['base_color'] == null ? '' : '$base-color:'.$_POST['base_color'].';';
-
-$search     = array('%base_color%');
-$replace    = array($base_color);
-
-
-// this is done.....
-$buffer     = file_get_contents($workingThemeScss);
-$new_scss   = str_replace($search, $replace, $buffer);
+$search     = '%FOO%';
+$replace    = '';
+foreach($data as $key => $val){
+    if ($val != null && $key != 'themeTemplate'){  //<<--------------------------// filter empty keys and themeTemplate
+        $key      = str_replace('_', '-', $key); //<<----------------------------// replase _ for - sencha dont like -
+        $replace .= '$'.$key.': '.$val.';'. PHP_EOL; //<<------------------------// will output this format:  $key: val
+    }
+}
+$buffer     = file_get_contents($workingThemeScss); //<<-------------------------// lets get the $replase and put it
+$new_scss   = str_replace($search, $replace, $buffer);                           // inside the scss $workingThemeScss
 $handle     = fopen($workingThemeScss, "w");
 fwrite($handle, $new_scss);
 fclose($handle);
-
-
 // *********************************************************************************************************************
 // Compilie new theme  ||  sass -v 3.1.1 is required
 // *********************************************************************************************************************
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') { //<<----------------------// If windows...
     $WshShell = new COM('WScript.Shell') or die ("Could not initialise WScript.Shell object.");;
     $wErr = $WshShell->Run('compass compile '.$win_sass_dir_path, 0, true);
-} else { //<<---------------------------------------------------------------// not windows...
+} else { //<<--------------------------------------------------------------------// not windows...
     $cmd = 'compass compile '.$sass_dir_path;
     exec( $cmd, $exec_results, $uErr);
 }
-if ($wErr == 1 || $uErr == 127 ){ //<<--------------------------------------// manage compile error...
-    //$error = true;
+if ($wErr == 1 || $uErr == 127 ){ //<<-------------------------------------------// manage compile error...
+    $error = true;
 }
 // *********************************************************************************************************************
 // Log activity
