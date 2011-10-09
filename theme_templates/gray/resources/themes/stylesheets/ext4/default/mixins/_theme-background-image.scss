@@ -11,12 +11,12 @@
     @if $exists_image {
         $exists: theme_image_exists($exists_image);
 
-        @if $exists or $include-missing-images {
+//        @if $exists or $include-missing-images {
             background-image: theme-image($theme-name, $path, $without-url, $relative);
-        }
-        @else {
-            @warn "@theme-background-image: Theme image not found: #{$exists_image}";
-        }
+//        }
+//        @else {
+//            @warn "@theme-background-image: Theme image not found: #{$exists_image}";
+//       }
     }
     @else {
         @warn "@theme-background-image: No arguments passed";

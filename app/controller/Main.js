@@ -105,7 +105,6 @@ Ext.define('App.controller.Main', {
                 }
             }
         }
-        console.log(App.workingTheme)  // <<<------------// debugging
         var time = new Date();
         // Update preview panel with new theme
         this.getPreview().update({ html:'<iframe src="theme.php?theme='+App.workingTheme+'?'+Ext.Date.format(time, 'U')+'" frameborder="0" width="100%" height="100%"></iframe>' });
@@ -113,6 +112,12 @@ Ext.define('App.controller.Main', {
     // Download request
     themeDowload: function(){
         // TODO: this will handle the dowload request
-        Ext.Msg.alert('Debbuging', 'This button will handle the download request.');
+        Ext.Ajax.request({
+            url: 'app/data/zip.php',
+            success: function(response){
+                var r = Ext.JSON.decode(response.responseText);
+                window.location = r.file;
+            }
+        });
     }
 });

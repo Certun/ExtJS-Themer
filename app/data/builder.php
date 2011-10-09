@@ -26,7 +26,7 @@ function ecrypt_session_id($str) { //<<-------------------------------------// T
         $char      = chr(ord($char)+ord($keychar));
         $result   .= $char;
     }
-    $url_safe     = rtrim(base64_encode($result),'+=/');
+    $url_safe     = str_replace(array('/','+','=','\\'),'', base64_encode($result));
     return $url_safe;
 }
 function copy_directory( $source, $destination ) { //<<---------------------// This funtion will copy template
@@ -98,6 +98,7 @@ $sass_dir_path              = $theme_path . '/resources/sass'; //<<-------------
 $win_sass_dir_path          = str_replace('/','\\',$sass_dir_path); //<<----------// $sass_dir_path (windows)
 $error                      = false; //<<-----------------------------------------// error set to false by default
 $_SESSION['theme_path']     = $theme_path; //<<-----------------------------------// save tmp theme_path for download
+$_SESSION['theme_dir']      = $tmp_dir.$theme_dir;
 // *********************************************************************************************************************
 // Lets clean the tmp/ directory of old stuff
 // *********************************************************************************************************************
