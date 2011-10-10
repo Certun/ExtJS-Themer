@@ -54,97 +54,142 @@ Ext.define('App.view.ControlPanel', {
         },
         title : '2. Choose Theme Options',
         items : [{
-            title       : 'Colors',
+            xtype       : 'colorfield',
+            //fieldLabel  : 'Base Color',
+            name        : 'base-color',
+            labelAlign  : 'topo',
+            anchor      : '100%',
+            emptyText   : 'Base Color'
+        },{
+            xtype       : 'combo',
+            //fieldLabel  : 'Font Family',
+            editable    : false,
+            labelAlign  : 'topo',
+            anchor      : '100%',
+            store       : 'Fonts',
+            displayField: 'name',
+            valueField  : 'value',
+            name        : 'font-family',
+            emptyText   : 'Font Family'
+        },{
+            title       : 'Panels',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
+            items:[{
+                fieldLabel  : 'Header Bkgd',
+                name        : 'panel-header-background-gradient'
+            },{
+                fieldLabel  : 'Header Color',
+                name        : 'panel-header-color'
+            },{
+                fieldLabel  : 'Border Color',
+                name        : 'panel-border-color'
+            },{
+                fieldLabel  : 'Frame Bkgd',
+                name        : 'panel-frame-background-color'
+            }]
+        },{
+            title       : 'Windows',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
+            items:[{
+                fieldLabel  : 'Header Bkgd',
+                name        : 'window-background-color'
+            },{
+                fieldLabel  : 'Header Color',
+                name        : 'window-header-color'
+            }]
+        },{
+            title       : 'Menu',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
+            items:[{
+                fieldLabel  : 'Active Bkgd',
+                name        : 'menu-item-active-background-color'
+            },{
+                fieldLabel  : 'Active Border',
+                name        : 'menu-item-active-border-color'
+            }]
+        },{
+            title       : 'Progress Bar',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
+            items:[{
+                fieldLabel  : 'Border Color',
+                name        : 'progress-border-color'
+            },{
+                fieldLabel  : 'Bar Color',
+                name        : 'progress-background-color'
+            }]
+        },{
+            title       : 'Toolbar',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
+            items:[{
+                fieldLabel  : 'Bkgd Color',
+                name        : 'toolbar-background-gradient'
+            },{
+                fieldLabel  : 'Septarator',
+                name        : 'toolbar-separator-color'
+            },{
+                fieldLabel  : 'Text Color',
+                name        : 'toolbar-text-color'
+            }]
+        },{
+            title       : 'Form',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
+            items:[{
+                fieldLabel  : 'Header Color',
+                name        : 'fieldset-header-color'
+            },{
+                fieldLabel  : 'Border Color',
+                name        : 'boundlist-border-color'
+            }]
+        },{
+            title       : 'Accordion',
+            defaults    : { width: 190, labelWidth:80 },
+            defaultType : 'colorfield',
+            items:[{
+                fieldLabel  : 'Header Color',
+                name        : 'accordion-header-background-color'
+            }]
+        },{
+            title       : 'Tabs',
             defaults    : { width: 190, labelWidth:80 },
             defaultType : 'colorfield',
             items:[{
                 fieldLabel  : 'Base Color',
-                name        : 'base_color'
+                name        : 'tab-base-color'
             },{
-                fieldLabel  : 'Title Color'
+                fieldLabel  : 'Active Color',
+                name        : 'tab-color-active'
             },{
-                fieldLabel  : 'Body Color'
+                fieldLabel  : 'Bkdg Color',
+                name        : 'tab-background-gradient'
             },{
-                fieldLabel  : 'Buttons Color'
+                fieldLabel  : 'Active Bkgd',
+                name        : 'tab-background-gradient-active'
             }]
         },{
-            title       : 'Fonts',
-            layout      : 'anchor',
-            defaultType : 'combo',
-            defaults    : {
-                editable    : false,
-                labelAlign  : 'topo',
-                anchor      : '100%',
-                store       : 'Fonts',
-                displayField: 'name',
-                valueField  : 'value',
-                emptyText   : 'Select'
-            },
-            items:[{
-                fieldLabel  : 'Default Font'
-            },{
-                fieldLabel  : 'Titles Font'
-            },{
-                fieldLabel  : 'Body Font'
-            },{
-                fieldLabel  : 'Buttons Font'
-            }]
-        },{
-            title       : 'Corner Radius',
+            title       : 'Buttons',
             defaults    : { width: 190, labelWidth:80 },
-            defaultType : 'numberfield',
+            defaultType : 'colorfield',
             items:[{
-                anchor      : '100%',
-                fieldLabel  : 'Panels',
-                minValue    : 0,
-                maxValue    : 25
+                fieldLabel  : 'Base Color',
+                name        : 'button-default-base-color'
             },{
-                anchor      : '100%',
-                fieldLabel  : 'Windows',
-                minValue    : 0,
-                maxValue    : 25
+                fieldLabel  : 'Color Over',
+                name        : 'button-default-base-color-over'
             },{
-                anchor      : '100%',
-                fieldLabel  : 'Buttons',
-                minValue    : 0,
-                maxValue    : 25
-            }]
-        },{
-            title       : 'Headers Styles',
-            defaults    : { width: 190, labelWidth:80 },
-            defaultType : 'textfield',
-            items:[{
-                fieldLabel  : 'Margin',
-                emptyText   : 'ei. 5 5 5 5'
+                fieldLabel  : 'Pressed Color',
+                name        : 'button-default-base-color-pressed'
             },{
-                fieldLabel  : 'Padding',
-                emptyText   : 'ei. 5 5 5 5'
-            }]
-        },{
-            title       : 'Body Styles',
-            defaults    : { width: 190, labelWidth:80 },
-            items:[{
-                xtype       : 'textfield',
-                fieldLabel  : 'Margin',
-                emptyText   : 'ei. 5 5 5 5'
+                fieldLabel  : 'Border Color',
+                name        : 'button-default-border-color'
             },{
-                xtype       : 'textfield',
-                fieldLabel  : 'Padding',
-                emptyText   : 'ei. 5 5 5 5'
-            }]
-        },{
-            title       : 'Buttons Styles',
-            defaults    : { width: 190, labelWidth:80},
-            items:[{
-                xtype       : 'textfield',
-                anchor      : '100%',
-                fieldLabel  : 'Margin',
-                emptyText   : 'ei. 5 5 5 5'
-            },{
-                xtype       : 'textfield',
-                anchor      : '100%',
-                fieldLabel  : 'Padding',
-                emptyText   : 'ei. 5 5 5 5'
+                fieldLabel  : 'Border Over',
+                name        : 'button-default-border-color-over'
             }]
         },{
             title       :'Custom Styles',
@@ -155,7 +200,8 @@ Ext.define('App.view.ControlPanel', {
             },{
                 xtype       : 'textarea',
                 width       : 190,
-                height      : 200
+                height      : 200,
+                name        : 'custom-css'
             }]
         }]
     },{
