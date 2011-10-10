@@ -11,13 +11,11 @@ Ext.define('App.store.Fonts', {
     autoLoad: true,
     fields: ['value', 'name'],
     data : [
-        {"value":"Georgia, serif", "name":"Georgia, serif"},
-        {"value":"\"Palatino Linotype\", \"Book Antiqua\", Palatino, serif", "name":"\"Palatino Linotype\", \"Book Antiqua\", Palatino, serif"},
-        {"value":"\"Times New Roman\", Times, serif", "name":"\"Times New Roman\", Times, serif"},
-        {"value":"Arial, Helvetica, sans-serif", "name":"Arial, Helvetica, sans-serif"},
-        {"value":"\"Comic Sans MS\", cursive, sans-serif", "name":"\"Comic Sans MS\", cursive, sans-serif"},
-        {"value":"\"Courier New\", Courier, monospace", "name":"\"Courier New\", Courier, monospace"},
-        {"value":"\"Lucida Console\", Monaco, monospace", "name":"\"Lucida Console\", Monaco, monospace"}
+        {"value":"Arial, Helvetica, sans-serif",            "name":"Arial, Helvetica, Sans"},
+        {"value":"'Comic Sans MS', cursive",                "name":"'Comic Sans MS', cursive"},
+        {"value":"'Courier New', Courier, monospace",       "name":"'Courier New', Courier, monospace"},
+        {"value":"'Trebuchet MS', Helvetica, sans-serif",   "name":"'Trebuchet MS', Helvetica, sans-serif"},
+        {"value":"Wingdings, 'Zapf Dingbats', sans-serif",  "name":"Wingdings, 'Zapf Dingbats', sans-serif"}
         //...
     ]
 });

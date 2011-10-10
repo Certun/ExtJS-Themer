@@ -129,8 +129,13 @@ $search     = '%FOO%';
 $replace    = '';
 foreach($data as $key => $val){
     if ($val != null && $key != 'themeTemplate'){  //<<--------------------------// filter empty keys and themeTemplate
-        $key      = str_replace('_', '-', $key); //<<----------------------------// replase _ for - sencha dont like -
-        $replace .= '$'.$key.': '.$val.';'. PHP_EOL; //<<------------------------// will output this format:  $key: val
+        if(preg_match("/gradient/", $key)){
+            $replace .= '$'.$key.': color-stops(lighten('.$val.',2),darken('.$val.',2));'. PHP_EOL;
+        }elseif(preg_match("/family/", $key)){
+            $replace .= '$'.$key.': '.$key.';'. PHP_EOL;
+        }else{
+            $replace .= '$'.$key.': '.$val.';'. PHP_EOL;
+        }
     }
 }
 $buffer     = file_get_contents($workingThemeScss); //<<-------------------------// lets get the $replase and put it
