@@ -4,7 +4,6 @@
  * User: Ernesto J Rodriguez (Certun)
  * Date: 10/4/11
  * Time: 5:24 PM
- * To change this template use File | Settings | File Templates.
  */
 // *********************************************************************************************************************
 // Start Session
