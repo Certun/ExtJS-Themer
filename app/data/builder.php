@@ -131,7 +131,7 @@ foreach($data as $key => $val){
         if(preg_match("/gradient/", $key)){
             $replace .= '$'.$key.': color-stops(lighten('.$val.',2),darken('.$val.',2));'. PHP_EOL;
         }elseif(preg_match("/family/", $key)){
-            $replace .= '$'.$key.': '.$key.';'. PHP_EOL;
+            $replace .= '$'.$key.': '.$val.';'. PHP_EOL;
         }else{
             $replace .= '$'.$key.': '.$val.';'. PHP_EOL;
         }

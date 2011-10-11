@@ -53,6 +53,7 @@ Ext.define('App.view.ControlPanel', {
             bodyStyle       : { padding:5 }
         },
         title : '2. Choose Theme Options',
+        itemId: 'options',
         items : [{
             xtype       : 'colorfield',
             //fieldLabel  : 'Base Color',
@@ -203,21 +204,28 @@ Ext.define('App.view.ControlPanel', {
                 height      : 200,
                 name        : 'custom-css'
             }]
+        },{
+            xtype       : 'button',
+            text        : 'Reset Options',
+            anchor      : '100%',
+            action      : 'reset'
         }]
     },{
-        xtype       : 'fieldset',
-        defaultType : 'button',
-        layout      : 'column',
-        defaults    : { columnWidth: .5 },
-        title       : '3. Preview Changes or Download Theme',
+        xtype           : 'fieldset',
+        defaultType     : 'button',
+        layout          : 'column',
+        defaults        : { columnWidth: .5 },
+        title           : '3. Preview Changes or Download Theme',
         items:[{
-            text    : 'Preview',
-            margin  : '0 5 0 0',
-            action  : 'preview'
+            text        : 'Preview',
+            margin      : '0 5 0 0',
+            action      : 'preview',
+            disabled    : true
         },{
-            text    : 'Download',
-            margin  : '0 0 0 5',
-            action  : 'download'
+            text        : 'Download',
+            margin      : '0 0 0 5',
+            action      : 'download',
+            disabled    : true
         }]
     }]
 });

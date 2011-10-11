@@ -17,6 +17,18 @@ Ext.define('App.controller.Main', {
         // To reference this use this.getControlpanel() or me.getControlpanel()
         ref     : 'controlpanel',
         selector: 'controlpanel'
+    },{
+        // To reference this use this.getControlpanel() or me.getControlpanel()
+        ref     : 'controlpaneloptions',
+        selector: 'controlpanel fieldset[itemId="options"]'
+    },{
+        // To reference this use this.getPreviewbtn() or me.getPreviewbtn()
+        ref     : 'previewbtn',
+        selector: 'controlpanel button[action=preview]'
+    },{
+        // To reference this use this.getDownloadbtn() or me.getDownloadbtn()
+        ref     : 'downloadbtn',
+        selector: 'controlpanel button[action=download]'
     }],
     init: function() {
         // Set the Current theme to null at application start
@@ -30,6 +42,7 @@ Ext.define('App.controller.Main', {
                 render: function(){
                     Ext.get('mainapp-loading').remove();
                     Ext.get('mainapp-loading-mask').fadeOut({remove:true});
+                    this.getControlpaneloptions().disable();
                 }
             },
             // After priview window ei render load the default theme
@@ -42,6 +55,8 @@ Ext.define('App.controller.Main', {
             'controlpanel button[action=changebase]': {
                 click: function(button){
                     me.changeBase(button);
+                    this.getPreviewbtn().enable();
+                    this.getControlpaneloptions().enable();
                 }
             },
             // To reload the preview using the current theme
@@ -49,8 +64,6 @@ Ext.define('App.controller.Main', {
                 click: function(){
                     var form = this.getControlpanel().getForm(); // get the form
                     form.setValues([{'workingTheme':App.workingTheme}]);
-
-
                     if (form.isValid()) { // make sure the form is valid data before submitting
                         form.submit({
                             waitTitle     : 'Compiling...',
@@ -59,6 +72,7 @@ Ext.define('App.controller.Main', {
                             success     : function(form, action) {
                                 // The submit success will return the workigTheme css
                                 App.workingTheme = action.result.theme;
+                                me.getDownloadbtn().enable();
                                 me.previewLoad();
                             },
                             failure     : function(form, action) {
@@ -74,6 +88,12 @@ Ext.define('App.controller.Main', {
             'controlpanel button[action=download]': {
                 click: function(){
                     me.themeDowload();
+                }
+            },
+            // Download handeler
+            'controlpanel button[action=reset]': {
+                click: function(){
+                    this.getControlpanel().getForm().reset();
                 }
             }
         });
