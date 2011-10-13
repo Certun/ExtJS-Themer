@@ -94,6 +94,10 @@ Ext.define('App.controller.Main', {
             'controlpanel button[action=reset]': {
                 click: function(){
                     this.getControlpanel().getForm().reset();
+                    var f = this.getControlpanel().getForm().getFields();
+                    for (var i in f.items){
+                        f.items[i].setFieldStyle({background:'#FFFFFF', color:'#000000'});
+                    }
                 }
             }
         });

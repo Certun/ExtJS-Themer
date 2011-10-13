@@ -24,7 +24,9 @@ Ext.define('App.view.ColorPickerField', {
             baseCls : Ext.baseCSSPrefix + 'colorpicker',
         	listeners: {
                 scope: me,
-                select: me.onSelect
+                select: me.onSelect,
+                change : function(){alert('')
+                }
             }
         })
 	},

@@ -56,14 +56,12 @@ Ext.define('App.view.ControlPanel', {
         itemId: 'options',
         items : [{
             xtype       : 'colorfield',
-            //fieldLabel  : 'Base Color',
             name        : 'base-color',
             labelAlign  : 'topo',
             anchor      : '100%',
             emptyText   : 'Base Color'
         },{
             xtype       : 'combo',
-            //fieldLabel  : 'Font Family',
             editable    : false,
             labelAlign  : 'topo',
             anchor      : '100%',
@@ -195,14 +193,11 @@ Ext.define('App.view.ControlPanel', {
         },{
             title       :'Custom Styles',
             items:[{
-                xtype       : 'displayfield',
-                labelWidth  : 190,
-                fieldLabel  : 'Copy and Paste your custom CSS style sheet'
-            },{
                 xtype       : 'textarea',
                 width       : 190,
                 height      : 200,
-                name        : 'custom-css'
+                name        : 'custom-css',
+                emptyText   : 'Copy and Paste your custom CSS style sheet'
             }]
         },{
             xtype       : 'button',
