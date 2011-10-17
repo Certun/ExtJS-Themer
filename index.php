@@ -29,6 +29,20 @@ if (DIRECTORY_SEPARATOR == '/'){
                 left:     45%;
                 top:      45%;
             }
+            ::-webkit-scrollbar {
+                width: 4px;
+                height: 10px;
+                margin: 0;
+            }
+            ::-webkit-scrollbar-track-piece  {
+                background-color: #fff;
+                -webkit-border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:vertical {
+                height: 50px;
+                background-color: #ccc;
+                -webkit-border-radius: 3px;
+            }
         </style>
     </head>
     <body>

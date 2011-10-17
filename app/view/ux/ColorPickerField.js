@@ -10,15 +10,15 @@
  * @version 1.0.0
  */
 
-Ext.define('App.view.ColorPickerField', {
+Ext.define('App.view.ux.ColorPickerField', {
 	extend          :'Ext.form.field.Picker',
-	requires        : ['App.view.AdvancedColorPicker'],
+	requires        : ['App.view.ux.AdvancedColorPicker'],
 	alias           : 'widget.colorfield',
     matchFieldWidth : false,
 	createPicker: function() {
         var me = this;
         
-        return Ext.create('App.view.AdvancedColorPicker', {
+        return Ext.create('App.view.ux.AdvancedColorPicker', {
             floating: true,
             focusOnShow: true,
             baseCls : Ext.baseCSSPrefix + 'colorpicker',

@@ -8,7 +8,7 @@
 Ext.define('App.controller.Main', {
     extend  : 'Ext.app.Controller',
     stores  : ['Fonts'],
-    views   : ['Preview', 'ControlPanel'],
+    views   : ['Preview', 'ControlPanel', 'window.IframeWindow'],
     refs    : [{
         // To reference this use this.getPreview() or me.getPreview()
         ref     : 'preview',
@@ -43,6 +43,7 @@ Ext.define('App.controller.Main', {
                     Ext.get('mainapp-loading').remove();
                     Ext.get('mainapp-loading-mask').fadeOut({remove:true});
                     this.getControlpaneloptions().disable();
+                    me.iframewindow = Ext.create('App.view.window.IframeWindow')
                 }
             },
             // After priview window ei render load the default theme
@@ -66,16 +67,16 @@ Ext.define('App.controller.Main', {
                     form.setValues([{'workingTheme':App.workingTheme}]);
                     if (form.isValid()) { // make sure the form is valid data before submitting
                         form.submit({
-                            waitTitle     : 'Compiling...',
-                            waitMsg       : 'Please Don\'t Go, Be Right back!',
+                            waitTitle       : 'Compiling...',
+                            waitMsg         : 'Please Don\'t Go, Be Right back!',
                             submitEmptyText : false,
-                            success     : function(form, action) {
+                            success : function(form, action) {
                                 // The submit success will return the workigTheme css
                                 App.workingTheme = action.result.theme;
                                 me.getDownloadbtn().enable();
                                 me.previewLoad();
                             },
-                            failure     : function(form, action) {
+                            failure : function(form, action) {
                                 Ext.Msg.alert(action.result.error.title, action.result.error.msg);
                             }
                         });
@@ -99,6 +100,22 @@ Ext.define('App.controller.Main', {
                         f.items[i].setFieldStyle({background:'#FFFFFF', color:'#000000'});
                     }
                 }
+            },
+            // botton toolbar btns handlers
+            'viewport button[action=sourceCode]': {
+                click: function(){
+                    window.location = 'https://github.com/Certun/ExtJS-Themer'
+                }
+            },
+            'viewport button[action=credits]': {
+                click: function(){
+                    this.showIframe('Credits','credits.html')
+                }
+            },
+            'viewport button[action=help]': {
+                click: function(){
+                    this.showIframe('Help','help.html')
+                }
             }
         });
     },
@@ -106,7 +123,6 @@ Ext.define('App.controller.Main', {
     changeBase: function(button){
         App.workingTheme    = null;
         App.themeTemplate   = button.value
-
         var field = this.getControlpanel().getForm().findField('themeTemplate');
         field.setValue(App.themeTemplate);
         this.previewLoad();
@@ -132,7 +148,9 @@ Ext.define('App.controller.Main', {
         }
         var time = new Date();
         // Update preview panel with new theme
-        this.getPreview().update({ html:'<iframe src="theme.php?theme='+App.workingTheme+'?'+Ext.Date.format(time, 'U')+'" frameborder="0" width="100%" height="100%"></iframe>' });
+        this.getPreview().update({
+            html:'<iframe src="theme.php?theme='+App.workingTheme+'?'+Ext.Date.format(time, 'U')+'" frameborder="0" width="100%" height="100%"></iframe>'
+        });
     },
     // Download request
     themeDowload: function(){
@@ -144,5 +162,11 @@ Ext.define('App.controller.Main', {
                 window.location = r.file;
             }
         });
+    },
+    showIframe: function(title, url){
+        var w = this.iframewindow;
+        w.setTitle(title);
+        w.update({html:'<iframe src="'+url+'" frameborder="0" width="100%" height="100%"></iframe>'});
+        w.show();
     }
 });

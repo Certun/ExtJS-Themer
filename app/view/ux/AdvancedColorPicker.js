@@ -9,7 +9,7 @@
  * @version 1.0.0
  * 
  */
-Ext.define('App.view.AdvancedColorPicker', {
+Ext.define('App.view.ux.AdvancedColorPicker', {
     extend : 'Ext.container.Container',
     alias : 'widget.advancedcolorpicker',
 	width : 350,
