@@ -8,7 +8,7 @@
 Ext.define('App.controller.Main', {
     extend  : 'Ext.app.Controller',
     stores  : ['Fonts'],
-    views   : ['Preview', 'ControlPanel', 'window.IframeWindow'],
+    views   : ['Preview', 'ControlPanel', 'Window'],
     refs    : [{
         // To reference this use this.getPreview() or me.getPreview()
         ref     : 'preview',
@@ -43,7 +43,7 @@ Ext.define('App.controller.Main', {
                     Ext.get('mainapp-loading').remove();
                     Ext.get('mainapp-loading-mask').fadeOut({remove:true});
                     this.getControlpaneloptions().disable();
-                    me.iframewindow = Ext.create('App.view.window.IframeWindow')
+                    me.iframewindow = Ext.create('App.view.Window')
                 }
             },
             // After priview window ei render load the default theme
@@ -102,19 +102,19 @@ Ext.define('App.controller.Main', {
                 }
             },
             // botton toolbar btns handlers
-            'viewport button[action=sourceCode]': {
-                click: function(){
-                    window.location = 'https://github.com/Certun/ExtJS-Themer'
-                }
-            },
             'viewport button[action=credits]': {
                 click: function(){
-                    this.showIframe('Credits','credits.html')
+                    this.showIframe('Credits','credits.html');
                 }
             },
             'viewport button[action=help]': {
                 click: function(){
-                    this.showIframe('Help','help.html')
+                    this.showIframe('Help','help.html');
+                }
+            },
+            'viewport button[action=sourceCode]': {
+                click: function(){
+                    window.location = 'https://github.com/Certun/ExtJS-Themer';
                 }
             }
         });
@@ -122,7 +122,7 @@ Ext.define('App.controller.Main', {
     // Fuction to change the Base Theme
     changeBase: function(button){
         App.workingTheme    = null;
-        App.themeTemplate   = button.value
+        App.themeTemplate = button.value;
         var field = this.getControlpanel().getForm().findField('themeTemplate');
         field.setValue(App.themeTemplate);
         this.previewLoad();

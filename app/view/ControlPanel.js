@@ -7,7 +7,7 @@
  */
 Ext.define('App.view.ControlPanel', {
     extend      : 'Ext.form.Panel',
-    requires    : 'App.view.ux.ColorPickerField',
+    requires    : 'App.ux.ColorPickerField',
     alias       : 'widget.controlpanel',
     store       : 'Fonts',
     autoScroll  : true,

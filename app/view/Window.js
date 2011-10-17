@@ -5,9 +5,8 @@
  * Date: 10/16/11
  * Time: 10:06 PM
  */
-Ext.define('App.view.window.IframeWindow',{
+Ext.define('App.view.Window',{
     extend      : 'Ext.window.Window',
-    alias       : 'widget.iframewindow',
     closeAction : 'hide',
     bodyStyle   : 'background-color:#fff',
     height      : 600,
